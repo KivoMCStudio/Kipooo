@@ -30,3 +30,32 @@ modules:
         type: none
     sound: "BLOCK_AMETHYST_CLUSTER_HIT"
     enabled: true
+  seed:
+    description: "&8| &f!seed &7- &6查看当前世界的种子."
+    message: "&8* &f种子: &7[&a%seed%&7]"
+    usage: "!seed"
+    enabled: true
+  teleport:
+    description: "&8| &f!t <玩家名> &7- &6请求传送至玩家身旁.\n&8| &f!th <玩家名> &7- &6请求玩家传送至你身旁."
+    message:
+      To:
+        type: title
+        title: "&6&l%player%请求传送到你身旁"
+        subTitle: "&7!yes 同意 &f| &7!no 拒绝."
+        fadeIn: 20
+        stay: 40
+        fadeOut: 20
+      From:
+        type: title
+        title: "&6&l%player%请求你传送到TA身旁"
+        subTitle: "&7!yes 同意 &f| &7!no 拒绝."
+        fadeIn: 20
+        stay: 40
+        fadeOut: 20
+    commands:
+      teleport: "!t"
+      teleportHere: "!th"
+      accept: "!yes"
+      deny: "!no"
+    sound: "BLOCK_ANVIL_BREAK"
+    enabled: true

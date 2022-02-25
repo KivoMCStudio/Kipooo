@@ -55,12 +55,16 @@ public class Kipooo extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        consoleBroad("正在加载监听器...");
         this.registerListener();
+        consoleBroad("加载完毕.");
     }
 
     @Override
     public void onDisable() {
-
+        consoleBroad("正在清空配方...");
+        Bukkit.clearRecipes();
+        consoleBroad("插件已卸载.");
     }
 
     public void registerListener() {
@@ -120,7 +124,9 @@ public class Kipooo extends JavaPlugin {
         ).replaceAll(
                 "%player_Z%" , String.valueOf(player.getLocation().getBlockZ())
         ).replaceAll(
-                "%player_World%" , toWorld(player.getLocation().getWorld().getName())
+                "%player_World%" , toWorld(player.getWorld().getName())
+        ).replaceAll(
+                "%seed%" , String.valueOf(player.getWorld().getSeed())
         );
     }
 
