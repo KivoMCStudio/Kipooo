@@ -12,11 +12,15 @@ public interface EssentialsModule extends Listener {
 
     String modulesName();
 
+    default String getModules() {
+        return "modules." + modulesName() + ".";
+    }
+
     default String getDescription() {
-        return Kipooo.toColor(Kipooo.INSTANCE.config.getString("modules." + modulesName() + ".description"));
+        return Kipooo.toColor(Kipooo.INSTANCE.config.getString(getModules() + ".description"));
     }
 
     default boolean isEnabled() {
-        return Kipooo.INSTANCE.config.getBoolean("modules." + modulesName() + ".enabled");
+        return Kipooo.INSTANCE.config.getBoolean(getModules() + ".enabled");
     }
 }

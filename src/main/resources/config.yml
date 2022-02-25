@@ -15,3 +15,18 @@ modules:
     message: "&8* &f%player%处于&7[&fX:&a%player_X%&8,&fY:&a%player_Y%&8,&fZ:&a%player_Z%&8,&f世界:&a%player_World%&7]"
     usage: "!here"
     enabled: true
+  mention:
+    description: "&8| &f@<玩家名> &7- &6艾特一个玩家."
+    complete: "@"
+    message:
+      To:
+        type: title
+        title: "&6&l有人@你"
+        subTitle: "&7%player%提到了你."
+        fadeIn: 20
+        stay: 20
+        fadeOut: 20
+      From:
+        type: none
+    sound: "BLOCK_AMETHYST_CLUSTER_HIT"
+    enabled: true

@@ -6,6 +6,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.kivo.kipooo.events.PlayerActionEvent;
+import org.kivo.kipooo.modules.EssentialsModule;
 
 import java.io.File;
 
@@ -53,12 +55,19 @@ public class Kipooo extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
+        this.registerListener();
     }
 
     @Override
     public void onDisable() {
 
+    }
+
+    public void registerListener() {
+        Bukkit.getPluginManager().registerEvents(new PlayerActionEvent() , this);
+        for (EssentialsModule module : EssentialsModule.modules) {
+            Bukkit.getPluginManager().registerEvents(module , this);
+        }
     }
 
     /**
