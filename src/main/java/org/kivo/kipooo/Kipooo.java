@@ -27,29 +27,29 @@ public class Kipooo extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        consoleBroad("æ­£åœ¨åŠ è½½é…ç½®æ–‡ä»¶...");
+        consoleBroad("ÕıÔÚ¼ÓÔØÅäÖÃÎÄ¼ş...");
         if (!configFile.exists()) {
-            consoleBroad("é…ç½®æ–‡ä»¶ä¸å­˜åœ¨...");
-            consoleBroad("æ­£åœ¨æ‰“åŒ…è¾“å…¥...");
+            consoleBroad("ÅäÖÃÎÄ¼ş²»´æÔÚ...");
+            consoleBroad("ÕıÔÚ´ò°üÊäÈë...");
             try {
                 this.saveResource("config.yml" , true);
             } catch (Exception exception) {
-                consoleBroad("&cé…ç½®æ–‡ä»¶è¯»å–å¤±è´¥ï¼Œå¯èƒ½æ˜¯ç¡¬ç›˜ç©ºé—´ä¸è¶³æˆ–æ²¡æœ‰æƒé™.");
+                consoleBroad("&cÅäÖÃÎÄ¼ş¶ÁÈ¡Ê§°Ü£¬¿ÉÄÜÊÇÓ²ÅÌ¿Õ¼ä²»×ã»òÃ»ÓĞÈ¨ÏŞ.");
                 exception.printStackTrace();
             }
-            consoleBroad("è½½å…¥æˆåŠŸ.");
+            consoleBroad("ÔØÈë³É¹¦.");
         }
-        consoleBroad("æ­£åœ¨åŠ è½½ä¿å­˜æ–‡ä»¶...");
+        consoleBroad("ÕıÔÚ¼ÓÔØ±£´æÎÄ¼ş...");
         if (!saveFile.exists()) {
-            consoleBroad("ä¿å­˜æ–‡ä»¶ä¸å­˜åœ¨...");
-            consoleBroad("æ­£åœ¨æ‰“åŒ…è¾“å…¥...");
+            consoleBroad("±£´æÎÄ¼ş²»´æÔÚ...");
+            consoleBroad("ÕıÔÚ´ò°üÊäÈë...");
             try {
                 this.saveResource("save.yml" , true);
             } catch (Exception e) {
-                consoleBroad("&cä¿å­˜æ–‡ä»¶è¯»å–å¤±è´¥ï¼Œå¯èƒ½æ˜¯ç¡¬ç›˜ç©ºé—´ä¸è¶³æˆ–æ²¡æœ‰æƒé™.");
+                consoleBroad("&c±£´æÎÄ¼ş¶ÁÈ¡Ê§°Ü£¬¿ÉÄÜÊÇÓ²ÅÌ¿Õ¼ä²»×ã»òÃ»ÓĞÈ¨ÏŞ.");
                 e.printStackTrace();
             }
-            consoleBroad("è½½å…¥æˆåŠŸ.");
+            consoleBroad("ÔØÈë³É¹¦.");
         }
     }
 
@@ -71,44 +71,44 @@ public class Kipooo extends JavaPlugin {
     }
 
     /**
-     * è¿”å›å¸¦æœ‰é¢œè‰²çš„å­—
-     * @param text åŸå§‹æ–‡æœ¬
-     * @return å¤„ç†ä¹‹åçš„æ–‡æœ¬
+     * ·µ»Ø´øÓĞÑÕÉ«µÄ×Ö
+     * @param text Ô­Ê¼ÎÄ±¾
+     * @return ´¦ÀíÖ®ºóµÄÎÄ±¾
      */
     public static String toColor(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
     /**
-     * ä»¥åå°èº«ä»½å‘é€ä¿¡æ¯
-     * @param text æ–‡æœ¬
+     * ÒÔºóÌ¨Éí·İ·¢ËÍĞÅÏ¢
+     * @param text ÎÄ±¾
      */
     public static void consoleBroad(String text) {
         Bukkit.getConsoleSender().sendMessage(Kipooo.toColor("&dKipooo &f" + text));
     }
 
     /**
-     * å‘æœåŠ¡å™¨å†…å¹¿æ’­ä¿¡æ¯
-     * @param text æ–‡æœ¬
+     * Ïò·şÎñÆ÷ÄÚ¹ã²¥ĞÅÏ¢
+     * @param text ÎÄ±¾
      */
     public static void broadCast(String text) {
         Bukkit.broadcastMessage(Kipooo.toColor(text));
     }
 
     /**
-     * è½¬æ¢ä¸ºé…ç½®æ–‡ä»¶ä¸­çš„ç¼©å†™
-     * @param text ä¼ å…¥æ–‡æœ¬
-     * @return è½¬å‡ºæ–‡æœ¬
+     * ×ª»»ÎªÅäÖÃÎÄ¼şÖĞµÄËõĞ´
+     * @param text ´«ÈëÎÄ±¾
+     * @return ×ª³öÎÄ±¾
      */
     public static String toWorld(String text) {
         return INSTANCE.config.getStringList("options.world-alias").contains(text) ? Kipooo.toColor(INSTANCE.config.getString("options.world-alias." + text)) : text;
     }
 
     /**
-     * æ›¿æ¢é…ç½®æ–‡ä»¶å‚æ•°
-     * @param text åŸå§‹æ–‡æœ¬
-     * @param player æ›¿æ¢ç©å®¶
-     * @return å¤„ç†æ–‡æœ¬
+     * Ìæ»»ÅäÖÃÎÄ¼ş²ÎÊı
+     * @param text Ô­Ê¼ÎÄ±¾
+     * @param player Ìæ»»Íæ¼Ò
+     * @return ´¦ÀíÎÄ±¾
      */
     public static String replacePlayer(String text , Player player) {
         return text.replaceAll(

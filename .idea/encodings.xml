@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/org/kivo/kipooo/Kipooo.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/org/kivo/kipooo/config/Lang.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/org/kivo/kipooo/events/PlayerActionEvent.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/org/kivo/kipooo/modules/CliModules.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/org/kivo/kipooo/modules/CompleteModules.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/org/kivo/kipooo/modules/EssentialsModule.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/org/kivo/kipooo/modules/HereModule.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/org/kivo/kipooo/modules/MentionModule.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/org/kivo/kipooo/modules/MessageModules.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/org/kivo/kipooo/modules/SoundModules.java" charset="GBK" />
+  </component>
+</project>

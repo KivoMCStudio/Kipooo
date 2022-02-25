@@ -22,9 +22,9 @@ public interface CliModules extends EssentialsModule{
     String TEXT = "text";
 
     /**
-     * ç»™ç©å®¶å‘é€ä¿¡æ¯
-     * @param player ç©å®¶
-     * @param fromOrTo æ¥æºæˆ–å»å‘
+     * ¸øÍæ¼Ò·¢ËÍĞÅÏ¢
+     * @param player Íæ¼Ò
+     * @param fromOrTo À´Ô´»òÈ¥Ïò
      */
     default void send(Player player , String fromOrTo) {
         switch (getType(fromOrTo)) {
@@ -35,74 +35,74 @@ public interface CliModules extends EssentialsModule{
     }
 
     /**
-     * ç»™ç©å®¶å‘é€æ ‡é¢˜
-     * @param player è¦å‘é€çš„ç©å®¶
-     * @param fromOrTo æ¥æºæˆ–å»å‘
+     * ¸øÍæ¼Ò·¢ËÍ±êÌâ
+     * @param player Òª·¢ËÍµÄÍæ¼Ò
+     * @param fromOrTo À´Ô´»òÈ¥Ïò
      */
     default void title(Player player , String fromOrTo) {
         player.sendTitle(Kipooo.replacePlayer(getTitle(fromOrTo , MAJOR), player), Kipooo.replacePlayer(getTitle(fromOrTo , SUB) , player) , getTime(FADEIN , fromOrTo) , getTime(STAY , fromOrTo) , getTime(FADEOUT , fromOrTo));
     }
 
     /**
-     * ç»™ç©å®¶å‘é€ActionBar
-     * @param player è¦å‘é€çš„ç©å®¶
-     * @param fromOrTo æ¥æºæˆ–å»å‘
+     * ¸øÍæ¼Ò·¢ËÍActionBar
+     * @param player Òª·¢ËÍµÄÍæ¼Ò
+     * @param fromOrTo À´Ô´»òÈ¥Ïò
      */
     default void action(Player player , String fromOrTo) {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR , new TextComponent(Kipooo.replacePlayer(getActionBar(fromOrTo) , player)));
     }
 
     /**
-     * ç»™ç©å®¶å‘é€æ–‡æœ¬
-     * @param player è¦å‘é€çš„ç©å®¶
-     * @param fromOrTo æ¥æºæˆ–å»å‘
+     * ¸øÍæ¼Ò·¢ËÍÎÄ±¾
+     * @param player Òª·¢ËÍµÄÍæ¼Ò
+     * @param fromOrTo À´Ô´»òÈ¥Ïò
      */
     default void text(Player player , String fromOrTo) {
         player.sendMessage(Kipooo.replacePlayer(getText(fromOrTo) , player));
     }
 
     /**
-     * è·å–ç±»å‹
-     * @param fromOrTo æ¥æºæˆ–å»å‘
-     * @return æ–‡æœ¬
+     * »ñÈ¡ÀàĞÍ
+     * @param fromOrTo À´Ô´»òÈ¥Ïò
+     * @return ÎÄ±¾
      */
     default String getType(String fromOrTo) {
         return Kipooo.INSTANCE.config.getString(getModules() + "message." + fromOrTo + "type");
     }
 
     /**
-     * è·å–æ“ä½œæ æ–‡æœ¬
-     * @param fromOrTo æ¥æºæˆ–å»å‘
-     * @return æ–‡æœ¬
+     * »ñÈ¡²Ù×÷À¸ÎÄ±¾
+     * @param fromOrTo À´Ô´»òÈ¥Ïò
+     * @return ÎÄ±¾
      */
     default String getActionBar(String fromOrTo) {
         return Kipooo.INSTANCE.config.getString(getModules() + "message." + fromOrTo + "text");
     }
 
     /**
-     * è·å–æ–‡æœ¬
-     * @param fromOrTo æ¥æºæˆ–å»å‘
-     * @return æ–‡æœ¬
+     * »ñÈ¡ÎÄ±¾
+     * @param fromOrTo À´Ô´»òÈ¥Ïò
+     * @return ÎÄ±¾
      */
     default String getText(String fromOrTo) {
         return Kipooo.toColor(Kipooo.INSTANCE.config.getString(getModules() + "message." + fromOrTo + "text"));
     }
 
     /**
-     * è·å–æ ‡é¢˜æ–‡æœ¬
-     * @param fromOrTO æ¥æºæˆ–å»å‘
-     * @param subOrMajor å­æ ‡é¢˜æˆ–ä¸»æ ‡é¢˜
-     * @return æ ‡é¢˜æ–‡æœ¬
+     * »ñÈ¡±êÌâÎÄ±¾
+     * @param fromOrTO À´Ô´»òÈ¥Ïò
+     * @param subOrMajor ×Ó±êÌâ»òÖ÷±êÌâ
+     * @return ±êÌâÎÄ±¾
      */
     default String getTitle(String fromOrTO , String subOrMajor) {
         return subOrMajor.equals(SUB) ? Kipooo.toColor(Kipooo.INSTANCE.config.getString(getModules() + "message." + fromOrTO + SUB)) : Kipooo.toColor(Kipooo.INSTANCE.config.getString(getModules() + "message." + fromOrTO + MAJOR));
     }
 
     /**
-     * è·å–æ—¶é—´
-     * @param time æ—¶é—´
-     * @param fromOrTo æ¥æºæˆ–å»å‘
-     * @return æ—¶é—´
+     * »ñÈ¡Ê±¼ä
+     * @param time Ê±¼ä
+     * @param fromOrTo À´Ô´»òÈ¥Ïò
+     * @return Ê±¼ä
      */
     default int getTime(String time , String fromOrTo) {
         return Kipooo.INSTANCE.config.getInt(getModules() + "message." + fromOrTo + time);

@@ -18,8 +18,8 @@ public enum Lang {
     }
 
     /**
-     * 杩斿洖璇█鏂囦欢淇℃伅
-     * @return 璇█鏂囦欢淇℃伅锛堟湭缁忓鐞嗭級
+     * 返回语言文件信息
+     * @return 语言文件信息（未经处理）
      */
     public String getMessage() {
         return Kipooo.toColor(Kipooo.INSTANCE.config.getString("lang." + path));
