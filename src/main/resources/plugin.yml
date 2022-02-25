@@ -1,0 +1,6 @@
+name: Kipooo
+main: org.kivo.kipooo.Kipooo
+version: '${version}'
+api-version: 1.18
+prefix: Kipooo
+authors: [KIVO COMMUNITY DEVELOPER STUDIO]
