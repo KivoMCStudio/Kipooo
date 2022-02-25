@@ -8,4 +8,8 @@ public interface MessageModules extends EssentialsModule{
         return Kipooo.toColor(Kipooo.INSTANCE.config.getString("modules." + modulesName() + ".message"));
     }
 
+    default String getUsage() {
+        return Kipooo.INSTANCE.config.getString("modules." + modulesName() + ".usage");
+    }
+
 }

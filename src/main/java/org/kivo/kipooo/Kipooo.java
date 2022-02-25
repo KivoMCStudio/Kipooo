@@ -4,6 +4,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -83,6 +84,35 @@ public class Kipooo extends JavaPlugin {
      */
     public static void broadCast(String text) {
         Bukkit.broadcastMessage(Kipooo.toColor(text));
+    }
+
+    /**
+     * 转换为配置文件中的缩写
+     * @param text 传入文本
+     * @return 转出文本
+     */
+    public static String toWorld(String text) {
+        return INSTANCE.config.getStringList("options.world-alias").contains(text) ? Kipooo.toColor(INSTANCE.config.getString("options.world-alias." + text)) : text;
+    }
+
+    /**
+     * 替换配置文件参数
+     * @param text 原始文本
+     * @param player 替换玩家
+     * @return 处理文本
+     */
+    public static String replacePlayer(String text , Player player) {
+        return text.replaceAll(
+                "%player%" , player.getName()
+        ).replaceAll(
+                "%player_X%" , String.valueOf(player.getLocation().getBlockX())
+        ).replaceAll(
+                "%player_Y%" , String.valueOf(player.getLocation().getBlockY())
+        ).replaceAll(
+                "%player_Z%" , String.valueOf(player.getLocation().getBlockZ())
+        ).replaceAll(
+                "%player_World%" , toWorld(player.getLocation().getWorld().getName())
+        );
     }
 
 }
