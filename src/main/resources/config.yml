@@ -1,0 +1,17 @@
+lang:
+  kick-whitelist: "&dKivo &c您没有白名单，请先加群：&a481121567&c申请获得白名单。"
+  kick-banned: "&dKivo &c诶哟？服务器似乎不欢迎您诶？"
+  banned-broadcast: "&8* &f%player%似乎想进来游玩喔。"
+  join-message: "&8+ &f%player%加入了游戏."
+  quit-message: "&8- &f%player%断开了连接."
+options:
+  world-alias:
+    world: "&a主世界"
+    world_nether: "&c下界"
+    world_the_end: "&7末地"
+modules:
+  here:
+    description: "&8| &f!here &7- &6向全服玩家显示你当前的坐标."
+    message: "&8* &f%player%处于&7[&fX:&a%player_X%&8,&fY:&a%player_Y%&8,&fZ:&a%player_Z%&8,&f世界:&a%player_World%&7]"
+    usage: "!here"
+    enabled: true
