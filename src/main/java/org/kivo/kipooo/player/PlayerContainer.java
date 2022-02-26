@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class PlayerContainer implements PersistentDataType<PersistentDataContainer, PlayerData> {
 
-    public static final NamespacedKey KEY = new NamespacedKey(Kipooo.INSTANCE , "playerData");
+    public static final NamespacedKey KEY = new NamespacedKey(Kipooo.INSTANCE , "player");
 
     public static PlayerContainer INSTANCE = new PlayerContainer();
 

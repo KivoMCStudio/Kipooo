@@ -88,8 +88,8 @@ public class PlayerData {
                 .append(",").append("[")
                 .append(data.getDeadLoc().getWorld().getName()).append(":").append(String.valueOf(data.getDeadLoc().getX())).append(":").append(String.valueOf(data.getDeadLoc().getY())).append(":").append(String.valueOf(data.getDeadLoc().getZ())).append("]");
          */
-        return data.getPlayer().getName() + "-" + data.isDnd() + "-" + data.getUid() + "-" + data.isScore() + "-["
-                + data.getHomeLoc().getWorld().getName() + ":" + data.getHomeLoc().getX() + ":" + data.getHomeLoc().getY() + ":" + data.getHomeLoc().getZ() + "]-[" +
+        return data.getPlayer().getName() + "," + data.isDnd() + "," + data.getUid() + "," + data.isScore() + ",["
+                + data.getHomeLoc().getWorld().getName() + ":" + data.getHomeLoc().getX() + ":" + data.getHomeLoc().getY() + ":" + data.getHomeLoc().getZ() + "],[" +
                 data.getDeadLoc().getWorld().getName() + ":" + data.getDeadLoc().getX() + ":" + data.getDeadLoc().getY() + ":" + data.getDeadLoc().getZ() + "]";
     }
 
@@ -100,7 +100,7 @@ public class PlayerData {
      */
     public static PlayerData fromString(String dataStr) {
         try {
-            String[] dataArray = dataStr.split("-");
+            String[] dataArray = dataStr.split(",");
         /*
         0 -> 玩家ID
         1 -> 玩家免打扰模式
