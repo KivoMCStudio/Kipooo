@@ -1,5 +1,6 @@
 package org.kivo.kipooo.events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -10,10 +11,15 @@ import org.kivo.kipooo.Kipooo;
 import org.kivo.kipooo.config.Lang;
 import org.kivo.kipooo.modules.EssentialsModule;
 
+import java.util.Arrays;
+
 public class PlayerActionEvent implements Listener {
 
     @EventHandler
     public void join(PlayerJoinEvent event) {
+        if (!Arrays.asList(Bukkit.getOfflinePlayers()).contains(event.getPlayer())) {
+            Kipooo.INSTANCE.addPlayer(event.getPlayer()); // 玩家第一次进服
+        }
         event.setJoinMessage(Kipooo.replacePlayer(Lang.JOIN.getMessage() , event.getPlayer()));
     }
 

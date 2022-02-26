@@ -2,20 +2,16 @@ package org.kivo.kipooo;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.kivo.kipooo.events.PlayerActionEvent;
-import org.kivo.kipooo.modules.EssentialsModule;
-import org.kivo.kipooo.modules.HereModule;
-import org.kivo.kipooo.modules.MentionModule;
-import org.kivo.kipooo.modules.SeedModule;
-import org.kivo.kipooo.player.PlayerData;
+import org.kivo.kipooo.modules.*;
 
 import java.io.File;
+import java.util.*;
 
 public class Kipooo extends JavaPlugin {
 
@@ -25,7 +21,7 @@ public class Kipooo extends JavaPlugin {
         INSTANCE = this;
     }
 
-    public static NamespacedKey key = new NamespacedKey(INSTANCE , "playerData");
+    public static Map<OfflinePlayer, Integer> playerWithUID = new HashMap<OfflinePlayer, Integer>();
 
     public File configFile = new File(this.getDataFolder() , "config.yml");
     public File saveFile = new File(this.getDataFolder() , "save.yml");
@@ -63,12 +59,13 @@ public class Kipooo extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        setPlayerWithUID(); // 每次启动时排序UID
         config = YamlConfiguration.loadConfiguration(configFile);
         consoleBroad("已加载配置文件.");
         save = YamlConfiguration.loadConfiguration(saveFile);
         consoleBroad("已加载保存文件.");
         consoleBroad("正在加载监听器...");
-        loadModules(new HereModule() , new MentionModule() , new SeedModule());
+        loadModules(new HereModule() , new MentionModule() , new SeedModule() , new DndModule());
         this.registerListener();
         consoleBroad("加载完毕.");
     }
@@ -78,6 +75,33 @@ public class Kipooo extends JavaPlugin {
         consoleBroad("正在清空配方...");
         Bukkit.clearRecipes();
         consoleBroad("插件已卸载.");
+    }
+
+    /**
+     * 为玩家增加UID
+     * @param player 玩家
+     */
+    public void addPlayer(Player player) {
+        playerWithUID.put(player , playerWithUID.size() + 1);
+    }
+
+    /**
+     * 排序玩家UID
+     */
+    public void setPlayerWithUID() {
+        playerWithUID.clear(); // 清空数据
+        List<OfflinePlayer> playerWithUIDCollection = Arrays.asList(Bukkit.getOfflinePlayers());
+        playerWithUIDCollection.sort(new Comparator<OfflinePlayer>() {
+            @Override
+            public int compare(OfflinePlayer o1, OfflinePlayer o2) {
+                long o1Date = o1.getFirstPlayed();
+                long o2Date = o2.getFirstPlayed();
+                return o1Date < o2Date ? 1 : -1;
+            }
+        });
+        for (OfflinePlayer player : playerWithUIDCollection) {
+            playerWithUID.put(player , playerWithUIDCollection.indexOf(player) + 1);
+        }
     }
 
     /**
@@ -177,6 +201,15 @@ public class Kipooo extends JavaPlugin {
         ).replaceAll(
                 "%seed%" , String.valueOf(player.getWorld().getSeed())
         );
+    }
+
+    /**
+     * 获取玩家的UID
+     * @param player 玩家
+     * @return 玩家的UID
+     */
+    public static int getUid(Player player) {
+        return playerWithUID.get(player);
     }
 
 }
