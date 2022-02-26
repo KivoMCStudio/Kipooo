@@ -8,7 +8,6 @@ public class HereModule implements MessageModules{
 
     @Override
     public String modulesName() {
-        modules.add(this);
         return "here";
     }
 

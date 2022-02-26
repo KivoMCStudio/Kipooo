@@ -1,9 +1,10 @@
 lang:
-  kick-whitelist: "&dKivo &c您没有白名单，请先加群：&a481121567&c申请获得白名单。"
-  kick-banned: "&dKivo &c诶哟？服务器似乎不欢迎您诶？"
+  kick-whitelist: "&c您没有白名单，请先加群申请白名单\n&7QQ群: &f&n481121567"
+  kick-banned: "&c诶哟？服务器似乎不欢迎您诶？\n&c爱作弊的大哥哥"
   banned-broadcast: "&8* &f%player%似乎想进来游玩喔。"
   join-message: "&8+ &f%player%加入了游戏."
   quit-message: "&8- &f%player%断开了连接."
+  reload-succeed: "&8* &f插件已重载完毕."
 options:
   world-alias:
     world: "&a主世界"
@@ -20,12 +21,17 @@ modules:
     complete: "@"
     message:
       To:
+        # [title|actionbar|text]
         type: title
         title: "&6&l有人@你"
         subTitle: "&7%player%提到了你."
         fadeIn: 20
         stay: 20
         fadeOut: 20
+        dnd:
+          # [actionbar|text]
+          type: actionbar
+          text: "%player%提到了你"
       From:
         type: none
     sound: "BLOCK_AMETHYST_CLUSTER_HIT"
@@ -34,6 +40,13 @@ modules:
     description: "&8| &f!seed &7- &6查看当前世界的种子."
     message: "&8* &f种子: &7[&a%seed%&7]"
     usage: "!seed"
+    enabled: true
+  dnd:
+    description: "&8| &f!dnd &7- &6切换免打扰状态."
+    message:
+      on: "&8* &f已开启免打扰."
+      off: "&8* &f已关闭免打扰."
+    toggle: "!dnd"
     enabled: true
   teleport:
     description: "&8| &f!t <玩家名> &7- &6请求传送至玩家身旁.\n&8| &f!th <玩家名> &7- &6请求玩家传送至你身旁."

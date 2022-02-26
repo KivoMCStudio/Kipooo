@@ -1,13 +1,19 @@
 package org.kivo.kipooo;
 
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.kivo.kipooo.events.PlayerActionEvent;
 import org.kivo.kipooo.modules.EssentialsModule;
+import org.kivo.kipooo.modules.HereModule;
+import org.kivo.kipooo.modules.MentionModule;
+import org.kivo.kipooo.modules.SeedModule;
+import org.kivo.kipooo.player.PlayerData;
 
 import java.io.File;
 
@@ -19,11 +25,13 @@ public class Kipooo extends JavaPlugin {
         INSTANCE = this;
     }
 
+    public static NamespacedKey key = new NamespacedKey(INSTANCE , "playerData");
+
     public File configFile = new File(this.getDataFolder() , "config.yml");
     public File saveFile = new File(this.getDataFolder() , "save.yml");
 
-    public FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-    public FileConfiguration save = YamlConfiguration.loadConfiguration(saveFile);
+    public FileConfiguration config;
+    public FileConfiguration save;
 
     @Override
     public void onLoad() {
@@ -55,7 +63,12 @@ public class Kipooo extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        config = YamlConfiguration.loadConfiguration(configFile);
+        consoleBroad("已加载配置文件.");
+        save = YamlConfiguration.loadConfiguration(saveFile);
+        consoleBroad("已加载保存文件.");
         consoleBroad("正在加载监听器...");
+        loadModules(new HereModule() , new MentionModule() , new SeedModule());
         this.registerListener();
         consoleBroad("加载完毕.");
     }
@@ -67,6 +80,42 @@ public class Kipooo extends JavaPlugin {
         consoleBroad("插件已卸载.");
     }
 
+    /**
+     * 重置为默认配置文件
+     */
+    public void updateDefaultConfig() {
+        saveResource("config.yml" , true);
+        consoleBroad("覆盖成功.");
+    }
+
+    /**
+     * 重载配置文件
+     */
+    public void reloadConfig() {
+        if (!configFile.exists()) {
+            consoleBroad("配置文件不存在，正在加载...");
+            saveResource("config.yml" , true);
+        }
+        config = YamlConfiguration.loadConfiguration(configFile);
+        consoleBroad("配置文件已重载");
+    }
+
+    /**
+     * 加载模块
+     * @param modules 传入的模块
+     */
+    public void loadModules(EssentialsModule ... modules) {
+        for (EssentialsModule module : modules) {
+            if (module.isEnabled()) {
+                EssentialsModule.modules.add(module);
+                consoleBroad(module.modulesName() + "模块已加载.");
+            }
+        }
+    }
+
+    /**
+     * 注册监听器
+     */
     public void registerListener() {
         Bukkit.getPluginManager().registerEvents(new PlayerActionEvent() , this);
         for (EssentialsModule module : EssentialsModule.modules) {
@@ -80,7 +129,7 @@ public class Kipooo extends JavaPlugin {
      * @return 处理之后的文本
      */
     public static String toColor(String text) {
-        return ChatColor.translateAlternateColorCodes('&', text);
+        return ChatColor.translateAlternateColorCodes('&' , text);
     }
 
     /**
@@ -105,7 +154,7 @@ public class Kipooo extends JavaPlugin {
      * @return 转出文本
      */
     public static String toWorld(String text) {
-        return INSTANCE.config.getStringList("options.world-alias").contains(text) ? Kipooo.toColor(INSTANCE.config.getString("options.world-alias." + text)) : text;
+        return INSTANCE.config.getConfigurationSection("options.world-alias").getKeys(false).contains(text) ? Kipooo.toColor(INSTANCE.config.getString("options.world-alias." + text)) : text;
     }
 
     /**

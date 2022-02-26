@@ -9,7 +9,8 @@ public enum Lang {
     KICKBANNED("kick-banned"),
     BANNEDBC("banned-broadcast"),
     JOIN("join-message"),
-    QUIT("quit-message");
+    QUIT("quit-message"),
+    RELOAD("reload-succeed");
 
     private String path;
 
@@ -22,6 +23,6 @@ public enum Lang {
      * @return 语言文件信息（未经处理）
      */
     public String getMessage() {
-        return Kipooo.toColor(Kipooo.INSTANCE.config.getString("lang." + path));
+        return Kipooo.toColor(Kipooo.INSTANCE.config.getString("lang." + this.path));
     }
 }

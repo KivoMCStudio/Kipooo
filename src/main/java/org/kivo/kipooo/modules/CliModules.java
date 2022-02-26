@@ -10,12 +10,12 @@ public interface CliModules extends EssentialsModule{
     String FROM = "From.";
     String TO = "To.";
 
-    String SUB = "subTitle.";
-    String MAJOR = "title.";
+    String SUB = "subTitle";
+    String MAJOR = "title";
 
-    String FADEIN = "fadeIn.";
-    String STAY = "stay.";
-    String FADEOUT = "fadeOut.";
+    String FADEIN = "fadeIn";
+    String STAY = "stay";
+    String FADEOUT = "fadeOut";
 
     String ACTION = "actionbar";
     String TITLE = "title";
@@ -40,7 +40,11 @@ public interface CliModules extends EssentialsModule{
      * @param fromOrTo 来源或去向
      */
     default void title(Player player , String fromOrTo) {
-        player.sendTitle(Kipooo.replacePlayer(getTitle(fromOrTo , MAJOR), player), Kipooo.replacePlayer(getTitle(fromOrTo , SUB) , player) , getTime(FADEIN , fromOrTo) , getTime(STAY , fromOrTo) , getTime(FADEOUT , fromOrTo));
+        player.sendTitle(Kipooo.replacePlayer(getTitle(fromOrTo , MAJOR), player),
+                Kipooo.replacePlayer(getTitle(fromOrTo , SUB) , player) ,
+                getTime(FADEIN , fromOrTo) ,
+                getTime(STAY , fromOrTo) ,
+                getTime(FADEOUT , fromOrTo));
     }
 
     /**
@@ -95,7 +99,8 @@ public interface CliModules extends EssentialsModule{
      * @return 标题文本
      */
     default String getTitle(String fromOrTO , String subOrMajor) {
-        return subOrMajor.equals(SUB) ? Kipooo.toColor(Kipooo.INSTANCE.config.getString(getModules() + "message." + fromOrTO + SUB)) : Kipooo.toColor(Kipooo.INSTANCE.config.getString(getModules() + "message." + fromOrTO + MAJOR));
+        String text = Kipooo.toColor(Kipooo.INSTANCE.config.getString(getModules() + "message." + fromOrTO + subOrMajor));
+        return text;
     }
 
     /**

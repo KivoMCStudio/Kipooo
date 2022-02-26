@@ -8,7 +8,6 @@ public class SeedModule implements MessageModules{
 
     @Override
     public String modulesName() {
-        modules.add(this);
         return "seed";
     }
 
