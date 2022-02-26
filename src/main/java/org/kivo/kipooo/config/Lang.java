@@ -22,7 +22,10 @@ public enum Lang {
     TPTOSELF("tp-to-self"),
     SETHOME("sethome"),
     HOME("home"),
-    NOHOME("no-home");
+    NOHOME("no-home"),
+    SAVE("save"),
+    DEL("del"),
+    UNKNOWNLOC("unknown-loc");
 
     private String path;
 

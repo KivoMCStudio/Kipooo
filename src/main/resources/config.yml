@@ -17,6 +17,9 @@ lang:
   sethome: "&8* &f已设置家."
   home: "&8* &f已回到家."
   no-home: "&8* &f你得先设置个家才行啊."
+  save: "&8* &f已保存坐标."
+  del: "&8* &f已删除坐标."
+  unknown-loc: "&8* &f未知的坐标."
 options:
   world-alias:
     world: "&a主世界"
@@ -101,4 +104,10 @@ modules:
     description: "&8| &f!sleep &7- &6可以查看当前世界游戏时刻."
     message: "&8* &f当前世界游戏时刻为: &a%tick%"
     usage: "!sleep"
+    enabled: true
+  save:
+    description: "&8| &f!save <坐标名> &7- &6保存坐标.\n&8| &f!del <坐标名> &7- &6移除坐标."
+    commands:
+      save: "!save"
+      del: "!del"
     enabled: true

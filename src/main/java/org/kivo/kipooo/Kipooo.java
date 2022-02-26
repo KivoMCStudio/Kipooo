@@ -68,7 +68,8 @@ public class Kipooo extends JavaPlugin {
         save = YamlConfiguration.loadConfiguration(saveFile);
         consoleBroad("已加载保存文件.");
         consoleBroad("正在加载监听器...");
-        loadModules(new HereModule() , new MentionModule() , new SeedModule() , new DndModule() , new TeleportModule() , new DeadModule() , new SkipNightModule() , new HomeModule());
+        loadModules(new SaveModules() , new HereModule() , new MentionModule() , new SeedModule() , new DndModule() ,
+                new TeleportModule() , new DeadModule() , new SkipNightModule() , new HomeModule());
         this.registerListener();
         consoleBroad("加载完毕.");
     }
