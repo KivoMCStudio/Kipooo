@@ -5,6 +5,18 @@ lang:
   join-message: "&8+ &f%player%加入了游戏."
   quit-message: "&8- &f%player%断开了连接."
   reload-succeed: "&8* &f插件已重载完毕."
+  tp-to: "&8* &f已发送传送请求."
+  tp-succeed: "&8* &f传送成功."
+  tp-accept: "&8* &f已接受传送请求."
+  tp-deny: "&8* &f已拒绝了你的传送请求."
+  tp-deny-from: "&8* &f传送请求已被拒绝."
+  tp-cancel: "&8* &f请求已超时."
+  tp-noquest: "&8* &f似乎没有传送请求喔."
+  tp-too-many: "&8* &f休息一下吧，阿伟."
+  tp-to-self: "&8* &f无法自己传送自己."
+  sethome: "&8* &f已设置家."
+  home: "&8* &f已回到家."
+  no-home: "&8* &f你得先设置个家才行啊."
 options:
   world-alias:
     world: "&a主世界"
@@ -44,8 +56,8 @@ modules:
   dnd:
     description: "&8| &f!dnd &7- &6切换免打扰状态."
     message:
-      on: "&8* &f已开启免打扰."
-      off: "&8* &f已关闭免打扰."
+      open: "&8* &f已开启免打扰."
+      close: "&8* &f已关闭免打扰."
     toggle: "!dnd"
     enabled: true
   teleport:
@@ -71,4 +83,22 @@ modules:
       accept: "!yes"
       deny: "!no"
     sound: "BLOCK_ANVIL_BREAK"
+    time: 120
+    enabled: true
+  home:
+    description: "&8| &f!sethome &7- &6将你所在位置设置为家.\n&8| &f!home &7- &6回到家."
+    commands:
+      sethome: "!sethome"
+      home: "!home"
+    sound: "AMBIENT_UNDERWATER_ENTER"
+    enabled: true
+  dead:
+    description: "&8| &f!dead &7- &6查看你的死亡坐标."
+    message: "&8* &f你的死亡坐标为&7[&fX:&a%player_Dead_X%&8,&fY:&a%player_Dead_Y%&8,&fZ:&a%player_Dead_Z%&8,&f世界:&a%player_Dead_World%&7]"
+    usage: "!dead"
+    enabled: true
+  skip:
+    description: "&8| &f!sleep &7- &6可以查看当前世界游戏时刻."
+    message: "&8* &f当前世界游戏时刻为: &a%tick%"
+    usage: "!sleep"
     enabled: true

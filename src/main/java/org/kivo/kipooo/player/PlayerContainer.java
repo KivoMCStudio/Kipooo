@@ -6,6 +6,8 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.kivo.kipooo.Kipooo;
 
+import java.util.Objects;
+
 public class PlayerContainer implements PersistentDataType<PersistentDataContainer, PlayerData> {
 
     public static final NamespacedKey KEY = new NamespacedKey(Kipooo.INSTANCE , "playerData");
@@ -31,7 +33,7 @@ public class PlayerContainer implements PersistentDataType<PersistentDataContain
     @Override
     public PersistentDataContainer toPrimitive(PlayerData complex, PersistentDataAdapterContext context) {
         PersistentDataContainer container = context.newPersistentDataContainer(); // 创建一个容器
-        container.set(KEY , PersistentDataType.STRING , PlayerData.toString(complex));
+        container.set(KEY , PersistentDataType.STRING , PlayerData.toStringArray(complex));
         return container;
     }
 
@@ -43,6 +45,6 @@ public class PlayerContainer implements PersistentDataType<PersistentDataContain
      */
     @Override
     public PlayerData fromPrimitive(PersistentDataContainer primitive, PersistentDataAdapterContext context) {
-        return PlayerData.fromString(primitive.get(KEY , STRING));
+        return Objects.requireNonNull(PlayerData.fromString(primitive.get(KEY, PersistentDataType.STRING)));
     }
 }

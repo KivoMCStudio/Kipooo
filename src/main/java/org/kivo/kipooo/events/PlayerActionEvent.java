@@ -9,7 +9,10 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.kivo.kipooo.Kipooo;
 import org.kivo.kipooo.config.Lang;
+import org.kivo.kipooo.modules.DndModule;
 import org.kivo.kipooo.modules.EssentialsModule;
+import org.kivo.kipooo.player.PlayerContainer;
+import org.kivo.kipooo.player.PlayerData;
 
 import java.util.Arrays;
 
@@ -19,6 +22,9 @@ public class PlayerActionEvent implements Listener {
     public void join(PlayerJoinEvent event) {
         if (!Arrays.asList(Bukkit.getOfflinePlayers()).contains(event.getPlayer())) {
             Kipooo.INSTANCE.addPlayer(event.getPlayer()); // 玩家第一次进服
+            if (event.getPlayer().getPersistentDataContainer().get(PlayerContainer.KEY , PlayerContainer.INSTANCE) == null) {
+                event.getPlayer().getPersistentDataContainer().set(PlayerContainer.KEY , PlayerContainer.INSTANCE , new PlayerData(event.getPlayer()));
+            }
         }
         event.setJoinMessage(Kipooo.replacePlayer(Lang.JOIN.getMessage() , event.getPlayer()));
     }

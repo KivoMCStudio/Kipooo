@@ -18,15 +18,19 @@ public class DndModule implements ToggleModules{
             if (event.getPlayer().getPersistentDataContainer().get(PlayerContainer.KEY , PlayerContainer.INSTANCE) != null) { // 已保存数据
                 PlayerData data = event.getPlayer().getPersistentDataContainer().get(PlayerContainer.KEY , PlayerContainer.INSTANCE);
                 if (data != null) {
-                    data.setDnd(!data.isDnd());
+                    boolean dndFlag = data.isDnd();
+                    data.setDnd(!dndFlag);
+                    String dndToggle = data.isDnd() ? "open" : "close";
                     event.getPlayer().getPersistentDataContainer().set(
                             PlayerContainer.KEY , PlayerContainer.INSTANCE , data
                     );
+                    event.getPlayer().sendMessage(getMessages(dndToggle));
                 }
             } else {
                 event.getPlayer().getPersistentDataContainer().set(
                         PlayerContainer.KEY , PlayerContainer.INSTANCE , new PlayerData(event.getPlayer())
                 );
+                event.getPlayer().sendMessage(getMessages("open"));
             }
         }
     }

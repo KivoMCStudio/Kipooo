@@ -1,14 +1,16 @@
 package org.kivo.kipooo;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.kivo.kipooo.events.PlayerActionEvent;
 import org.kivo.kipooo.modules.*;
+import org.kivo.kipooo.player.PlayerContainer;
 
 import java.io.File;
 import java.util.*;
@@ -59,13 +61,14 @@ public class Kipooo extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        setPlayerWithUID(); // 每次启动时排序UID
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this , this::setPlayerWithUID , 0 , 30 * 20);
+        // setRecipe(); // 设置合成表
         config = YamlConfiguration.loadConfiguration(configFile);
         consoleBroad("已加载配置文件.");
         save = YamlConfiguration.loadConfiguration(saveFile);
         consoleBroad("已加载保存文件.");
         consoleBroad("正在加载监听器...");
-        loadModules(new HereModule() , new MentionModule() , new SeedModule() , new DndModule());
+        loadModules(new HereModule() , new MentionModule() , new SeedModule() , new DndModule() , new TeleportModule() , new DeadModule() , new SkipNightModule() , new HomeModule());
         this.registerListener();
         consoleBroad("加载完毕.");
     }
@@ -75,6 +78,25 @@ public class Kipooo extends JavaPlugin {
         consoleBroad("正在清空配方...");
         Bukkit.clearRecipes();
         consoleBroad("插件已卸载.");
+    }
+
+    /**
+     * 添加配方
+     * @param recipes 配方
+     */
+    public void addRecipe(Recipe ... recipes) {
+        for (Recipe recipe : recipes) {
+            Bukkit.addRecipe(recipe);
+        }
+    }
+
+    /**
+     * 设置配方
+     */
+    public void setRecipe() {
+        // TODO 胡吉需要添加的合成表
+        // ShapedRecipe goldenReciped = new ShapedRecipe(PlayerContainer.KEY, new ItemStack(Material.GOLDEN_APPLE));
+        // addRecipe(goldenReciped , goldenReciped , goldenReciped);
     }
 
     /**
@@ -96,7 +118,7 @@ public class Kipooo extends JavaPlugin {
             public int compare(OfflinePlayer o1, OfflinePlayer o2) {
                 long o1Date = o1.getFirstPlayed();
                 long o2Date = o2.getFirstPlayed();
-                return o1Date < o2Date ? 1 : -1;
+                return o1Date < o2Date ? -1 : 1;
             }
         });
         for (OfflinePlayer player : playerWithUIDCollection) {
@@ -188,6 +210,27 @@ public class Kipooo extends JavaPlugin {
      * @return 处理文本
      */
     public static String replacePlayer(String text , Player player) {
+        if (player.getPersistentDataContainer().get(PlayerContainer.KEY , PlayerContainer.INSTANCE) != null) {
+            Location homeLoc = player.getPersistentDataContainer().get(PlayerContainer.KEY, PlayerContainer.INSTANCE).getHomeLoc();
+            Location deadLoc = player.getPersistentDataContainer().get(PlayerContainer.KEY, PlayerContainer.INSTANCE).getDeadLoc();
+            text = text.replaceAll(
+                    "%player_Home_X%" , String.valueOf(homeLoc.getX())
+            ).replaceAll(
+                    "%player_Home_Y%" , String.valueOf(homeLoc.getY())
+            ).replaceAll(
+                    "%player_Home_Z%" , String.valueOf(homeLoc.getZ())
+            ).replaceAll(
+                    "%player_Home_World%" , toWorld(homeLoc.getWorld().getName())
+            ).replaceAll(
+                    "%player_Dead_X%" , String.valueOf(deadLoc.getBlockX())
+            ).replaceAll(
+                    "%player_Dead_Y%" , String.valueOf(deadLoc.getBlockY())
+            ).replaceAll(
+                    "%player_Dead_Z%" , String.valueOf(deadLoc.getBlockZ())
+            ).replaceAll(
+                    "%player_Dead_World%" , toWorld(deadLoc.getWorld().getName())
+            );
+        }
         return text.replaceAll(
                 "%player%" , player.getName()
         ).replaceAll(
@@ -200,6 +243,8 @@ public class Kipooo extends JavaPlugin {
                 "%player_World%" , toWorld(player.getWorld().getName())
         ).replaceAll(
                 "%seed%" , String.valueOf(player.getWorld().getSeed())
+        ).replaceAll(
+                "%tick%" , String.valueOf(player.getLocation().getWorld().getGameTime())
         );
     }
 
