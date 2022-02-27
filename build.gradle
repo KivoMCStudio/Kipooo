@@ -3,20 +3,20 @@ plugins {
 }
 
 group 'online.kivo'
-version '1.5.3-SNAPSHOT'
+version '1.5.4-SNAPSHOT'
 
 repositories {
     mavenCentral()
-
-    maven {
-        url("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    }
+    maven { url("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") }
+    maven { url("https://repo.dmulloy2.net/repository/public/") }
 }
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
     implementation("org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT")
+    implementation("com.comphenix.protocol:ProtocolLib:4.7.0")
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 test {

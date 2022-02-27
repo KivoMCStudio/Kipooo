@@ -70,6 +70,9 @@ public class Kipooo extends JavaPlugin {
         consoleBroad("正在加载监听器...");
         loadModules(new SaveModules() , new HereModule() , new MentionModule() , new SeedModule() , new DndModule() ,
                 new TeleportModule() , new DeadModule() , new SkipNightModule() , new HomeModule());
+        if (isLoad()) {
+            loadModules(new ScoreBoardModule());
+        }
         this.registerListener();
         consoleBroad("加载完毕.");
     }
@@ -79,6 +82,14 @@ public class Kipooo extends JavaPlugin {
         consoleBroad("正在清空配方...");
         Bukkit.clearRecipes();
         consoleBroad("插件已卸载.");
+    }
+
+    /**
+     * 检查依赖是否加载
+     * @return 软依赖是否已加载
+     */
+    public boolean isLoad() {
+        return Bukkit.getPluginManager().getPlugin("ProtocolLib") != null;
     }
 
     /**

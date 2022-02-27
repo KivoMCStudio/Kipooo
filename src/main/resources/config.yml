@@ -112,4 +112,17 @@ modules:
       save: "!save"
       del: "!del"
       list: "!list"
-    enabled: false
+    enabled: true
+  score:
+    description: "&8| &f!score &7- &6打开记分板播报."
+    message:
+      open: "&8* &f已开启记分板."
+      close: "&8* &f已关闭记分板."
+    toggle: "!score"
+    board:
+      top: 15
+      # TICK
+      update-time: 20
+    # SECOND
+    time: 60
+    enabled: true
