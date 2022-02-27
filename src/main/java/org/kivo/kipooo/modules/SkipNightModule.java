@@ -17,25 +17,25 @@ public class SkipNightModule implements MessageModules{
 
     @Override
     public String modulesName() {
-        return "sleep";
+        return "skip";
     }
 
     @EventHandler
     public void actionEnter(PlayerBedEnterEvent event) {
         if (event.getBedEnterResult() == PlayerBedEnterEvent.BedEnterResult.OK && isEnabled()) {
+            Bukkit.getScheduler().runTaskLater(
+                    Kipooo.INSTANCE , () -> {
+                        event.getPlayer().getWorld().setStorm(false);
+                        event.getPlayer().getWorld().setThundering(false);
+                        event.getPlayer().getWorld().setTime(0);
+                    } , 20 * 3
+            );
             sleepTask = Bukkit.getScheduler().runTaskTimerAsynchronously(
                     Kipooo.INSTANCE , () -> {
                         for (Player player : Bukkit.getOnlinePlayers()) {
                             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(Kipooo.toColor("&f今夜将在睡梦中度过.")));
                         }
                     } , 0 , 1
-            );
-            Bukkit.getScheduler().runTaskLaterAsynchronously(
-                    Kipooo.INSTANCE , () -> {
-                        event.getPlayer().getWorld().setStorm(false);
-                        event.getPlayer().getWorld().setThundering(false);
-                        event.getPlayer().getWorld().setTime(0);
-                    } , 20 * 5
             );
         }
     }

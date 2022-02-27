@@ -6,11 +6,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.kivo.kipooo.Kipooo;
 import org.kivo.kipooo.config.Lang;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 public class SaveModules implements MultiModules{
@@ -35,25 +31,9 @@ public class SaveModules implements MultiModules{
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                /*
-                try {
-                    FileOutputStream fileOutputStream = new FileOutputStream(Kipooo.INSTANCE.saveFile); // 创建输出流
-                    FileInputStream fileInputStream = new FileInputStream(Kipooo.INSTANCE.saveFile);
-                    byte[] data = new byte[1024 * 10 * 1024]; // 10MB 我就不信了
-                    int length;
-                    String dataStr = new String(data);
-                    dataStr = dataStr + "\n" + event.getMessage().replaceAll(getCommandKey("save") + " " , "") + ":" + playerLoc.getBlockX() + "," + playerLoc.getBlockY() + "," + playerLoc.getBlockZ() + "," + Objects.requireNonNull(playerLoc.getWorld()).getName();
-                    data = dataStr.trim().getBytes(StandardCharsets.UTF_8);
-                    length = data.length;
-                    fileOutputStream.write(data , 0 , length);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Kipooo.consoleBroad("遇到错误，请反馈.");
-                }
-                 */
             }
-            if (event.getMessage().startsWith(getCommandKey("del "))) {
-                String name = event.getMessage().replaceAll(getCommandKey("del ") , "");
+            if (event.getMessage().startsWith(getCommandKey("del") + " ")) {
+                String name = event.getMessage().replaceAll(getCommandKey("del") + " " , "");
                 if (Kipooo.INSTANCE.save.getKeys(false).contains(name)) {
                     Kipooo.INSTANCE.save.set(name , null);
                     try {
@@ -64,6 +44,11 @@ public class SaveModules implements MultiModules{
                     }
                 } else {
                     event.getPlayer().sendMessage(Lang.UNKNOWNLOC.getMessage());
+                }
+            }
+            if (event.getMessage().equalsIgnoreCase(getCommandKey("list"))) {
+                for (String key : Kipooo.INSTANCE.save.getKeys(false)) {
+                    event.getPlayer().sendMessage(Lang.LIST.getMessage().replaceAll("%loc_Name%" , key).replaceAll("%loc%" , Objects.requireNonNull(Kipooo.INSTANCE.save.getString(key))));
                 }
             }
         }

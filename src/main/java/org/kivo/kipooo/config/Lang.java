@@ -25,7 +25,8 @@ public enum Lang {
     NOHOME("no-home"),
     SAVE("save"),
     DEL("del"),
-    UNKNOWNLOC("unknown-loc");
+    UNKNOWNLOC("unknown-loc"),
+    LIST("list-key");
 
     private String path;
 

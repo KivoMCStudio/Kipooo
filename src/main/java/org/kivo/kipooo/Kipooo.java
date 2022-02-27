@@ -245,7 +245,7 @@ public class Kipooo extends JavaPlugin {
         ).replaceAll(
                 "%seed%" , String.valueOf(player.getWorld().getSeed())
         ).replaceAll(
-                "%tick%" , String.valueOf(player.getLocation().getWorld().getGameTime())
+                "%tick%" , String.valueOf(player.getLocation().getWorld().getTime())
         );
     }
 

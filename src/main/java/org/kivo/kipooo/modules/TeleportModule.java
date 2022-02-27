@@ -19,7 +19,7 @@ public class TeleportModule implements MultiModules , CliModules , SoundModules 
         ACCEPT("accept"),
         DENY("deny");
 
-        private String cmd;
+        private final String cmd;
         Cmds(String cmd) {
             this.cmd = cmd;
         }
@@ -57,9 +57,7 @@ public class TeleportModule implements MultiModules , CliModules , SoundModules 
                         fromAndTo.put(toPlayer , event.getPlayer());
                         event.getPlayer().sendMessage(Lang.TPTO.getMessage());
                         Bukkit.getScheduler().runTaskLaterAsynchronously(
-                                Kipooo.INSTANCE , () -> {
-                                    fromAndTo.remove(toPlayer);
-                                } , getTimer() * 20
+                                Kipooo.INSTANCE , () -> fromAndTo.remove(toPlayer), getTimer() * 20
                         );
                     }
                 } else { // 玩家有发送传送请求
@@ -79,9 +77,7 @@ public class TeleportModule implements MultiModules , CliModules , SoundModules 
                         toAndFrom.put(toPlayer, event.getPlayer());
                         event.getPlayer().sendMessage(Lang.TPTO.getMessage());
                         Bukkit.getScheduler().runTaskLaterAsynchronously(
-                                Kipooo.INSTANCE , () -> {
-                                    toAndFrom.remove(toPlayer);
-                                } , getTimer() * 20
+                                Kipooo.INSTANCE , () -> toAndFrom.remove(toPlayer), getTimer() * 20
                         );
                     }
                 } else {

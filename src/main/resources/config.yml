@@ -20,6 +20,7 @@ lang:
   save: "&8* &f已保存坐标."
   del: "&8* &f已删除坐标."
   unknown-loc: "&8* &f未知的坐标."
+  list-key: "&8* &7%loc_Name%:&f%loc%"
 options:
   world-alias:
     world: "&a主世界"
@@ -106,8 +107,9 @@ modules:
     usage: "!sleep"
     enabled: true
   save:
-    description: "&8| &f!save <坐标名> &7- &6保存坐标.\n&8| &f!del <坐标名> &7- &6移除坐标."
+    description: "&8| &f!save <坐标名> &7- &6保存坐标.\n&8| &f!del <坐标名> &7- &6移除坐标.\n&8| &f!list &7- &6列出所有坐标"
     commands:
       save: "!save"
       del: "!del"
-    enabled: true
+      list: "!list"
+    enabled: false
